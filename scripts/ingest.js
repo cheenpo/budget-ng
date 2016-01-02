@@ -58,14 +58,30 @@ fs.readFile(ingest_file, 'utf8', function (err, data) {
    var to_hash = (year+month+day+description+amount).replace(/ /g,"");
    var hash = crypto.createHash('md5').update(to_hash).digest('hex');
    //console.log(hash+" : "+to_hash);
-   var insert = false;
+   // categorize based on yaml rules
+   //// halt if something fails... ensures that everything gets categorized
+   var macro = "unknown";
+   var micro = "unknown";
+   for(var c=0; c < conf.categories.length; c++) {
+    if (description.indexOf(conf.categories[c].match) !=-1) {
+     macro = conf.categories[c].macro;
+     micro = conf.categories[c].micro;
+     break;
+    }
+   }
+   if(macro == "unknown") {
+    console.log("[error] unable to categorize: "+description);
+    process.exit(1);
+   }
+   //
    db.all("SELECT * FROM budget WHERE hash = '"+hash+"'", function(err, row) {
    	if(row.length > 0) {
    	 console.log("[warn] duplicate data: "+row[0]["description"]);
    	}
    });
    if(conf.status_to_analyze == status) {
-    db.run("INSERT OR IGNORE INTO budget (hash, year, month, day, amount, description, account, ignore, macro, micro) VALUES (?,?,?,?,?,?,?,?,?,?)", [hash, year, month, day, amount_to_insert, description, account, 0, 'to', 'do']);
+    console.log("[info] insert: "+to_hash+" : "+macro+"."+micro);
+    db.run("INSERT OR IGNORE INTO budget (hash, year, month, day, amount, description, account, ignore, macro, micro) VALUES (?,?,?,?,?,?,?,?,?,?)", [hash, year, month, day, amount_to_insert, description, account, 0, macro, micro]);
    }
   });
  }
