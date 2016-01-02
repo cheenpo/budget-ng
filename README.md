@@ -9,11 +9,13 @@ currently only aimed at citibank transaction imports... but others would not be 
 node ./scripts/db_create.js
 
 ## TODO
-- [x] ingestion - cli
-- [ ] ux - basics - view table of charges, change timeframs
-- [ ] ux - basics - view table of macro/micro summations
-- [ ] ux - basics - show summary of month, warnings, etc...
-- [ ] ingestion - ux
+- ux: table of charges, with smart filters (date, macro/micro, hash)
+- ux: ability to ignore charge
+- ux: month view (macro/micro summations, warnings, etc...)
+- ux: macro, micro, and/or warning should be smart filter/search in table of charges
 (after ingesting multiple months)
-- [ ] ux - graph over time (per category)
+- ux: graph over time (per category, net, etc...)
+
+## maybe in the future
+- ingestion: ux
 
