@@ -1,0 +1,48 @@
+doctype html
+html
+  head
+    title= title
+    script(src='/js/jquery-2.1.4.min.js')
+    script(src='/js/bootstrap.min.js')
+    script(src='/js/moment.min.js')
+    link(rel="stylesheet", href="/css/bootstrap.min.css")
+    // link(rel="stylesheet", href="/css/bootstrap-theme.min.css")
+    link(rel="stylesheet", href="/css/graphene-theme.min.css")
+    link(rel="stylesheet", href="/css/c1.css")
+  body(style="padding-left: 13px; width:99%")
+   nav(class="navbar navbar-default navbar-fixed-top")
+    div(class="container-fluid")
+     div(class="navbar-header pull-right")
+      button(type="button", class="navbar-toggle collapsed", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1", aria-expanded="false")
+       span(class="sr-only") Toggle navigation
+       span(class="icon-bar")
+       span(class="icon-bar")
+       span(class="icon-bar")
+      a(class="navbar-brand")= title
+
+     div(class="collapse navbar-collapse", id="bs-example-navbar-collapse-1")
+      ul(class="nav navbar-nav")
+       li
+        a(href="/") home 
+         span(class="glyphicon glyphicon-home")
+       li(class="dropdown")
+        a(href="#", class="dropdown-toggle", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") dev 
+         span(class="glyphicon glyphicon-headphones")
+         span(class="caret")
+        ul(class="dropdown-menu")
+         li
+          a(href="/feed") feed
+         li
+          a(href="/flow") flow
+         li
+          a(href="/overview") overview
+         li
+          a(href="/warnings") warnings
+       li
+        a(href="mailto:cyrus@apple.com?Subject=spacecowboy is cool" target="_top") 
+         span(class="glyphicon glyphicon-envelope")
+   block header
+   block content
+   block pre-footer
+   block footer
+
