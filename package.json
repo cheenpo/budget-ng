@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "csv": "^0.4.6",
     "sqlite3": "^3.1.1"
   },
   "devDependencies": {},
