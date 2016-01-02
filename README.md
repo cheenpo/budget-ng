@@ -7,6 +7,10 @@ currently only aimed at citibank transaction imports... but others would not be 
 ## getting started
 ### init db
 node ./scripts/db_create.js
+### ingest citibank export
+node scripts/ingest.js /PATH/TO/ExportData.csv conf/rules.yml
+### enjoy the ux
+todo: start command here
 
 ## TODO
 - ux: table of charges, with smart filters (date, macro/micro, hash)
