@@ -1,10 +1,13 @@
 var fs = require("fs");
 var parse = require('csv-parse');
 var crypto = require('crypto');
+var yaml = require("js-yaml");
 var file = "db/budget.db";
 var exists = fs.existsSync(file);
 var ingest_file = process.argv[2];
 var ingest_file_exists = fs.existsSync(ingest_file);
+var conf_file = process.argv[3];
+var conf_file_exists = fs.existsSync(conf_file);
 
 if(!exists) {
  console.log("[error] db file does not exist");
@@ -14,6 +17,12 @@ if(!ingest_file_exists) {
  console.log("[error] ingest_file file does not exist");
  process.exit(1);
 }
+if(!conf_file_exists) {
+ console.log("[error] conf_file file does not exist");
+ process.exit(1);
+}
+
+var conf = yaml.load(fs.readFileSync(conf_file));
 
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
@@ -55,7 +64,9 @@ fs.readFile(ingest_file, 'utf8', function (err, data) {
    	 console.log("[warn] duplicate data: "+row[0]["description"]);
    	}
    });
-   db.run("INSERT OR IGNORE INTO budget (hash, year, month, day, amount, description, account, ignore, macro, micro) VALUES (?,?,?,?,?,?,?,?,?,?)", [hash, year, month, day, amount_to_insert, description, account, 0, 'to', 'do']);
+   if(conf.status_to_analyze == status) {
+    db.run("INSERT OR IGNORE INTO budget (hash, year, month, day, amount, description, account, ignore, macro, micro) VALUES (?,?,?,?,?,?,?,?,?,?)", [hash, year, month, day, amount_to_insert, description, account, 0, 'to', 'do']);
+   }
   });
  }
 });
