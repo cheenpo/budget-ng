@@ -24,3 +24,64 @@ categories:
  - "macro": "home"
  - "micro": "mortgage"
 
+ # car
+ ## gas
+ - match: "CHEVRON 7-ELEVEN"
+   macro: "car"
+   micro: "gas"
+
+ # bills
+ - match: "TIME WARNER CABLE"
+   macro: "bill"
+   micro: "cable"
+ - match: "AT&T"
+   macro: "bill"
+   micro: "cell"
+
+ # food
+ ## grocery
+ - match: "HEB"
+   macro: "food"
+   micro: "grocery"
+ - match: "TRADER JOE"
+   macro: "food"
+   micro: "grocery"
+ - match: "WHOLEFDS"
+   macro: "food"
+   micro: "grocery"
+ ## restaurant
+ - match: "FREEBIRDS WORLD BURRIT"
+   macro: "food"
+   micro: "restaurant"
+ - match: "JERSEY MIKE"
+   macro: "food"
+   micro: "restaurant"
+ ## pizza
+ - match: "PAPA JOHN"
+   macro: "food"
+   micro: "pizza"
+ ## fast
+ - match: "P TERRY"
+   macro: "food"
+   micro: "fast"
+ - match: "MCDONALD"
+   macro: "food"
+   micro: "fast"
+ - match: "CHICK-FIL-A"
+   macro: "food"
+   micro: "fast"
+ - match: "TACO BELL"
+   macro: "food"
+   micro: "fast"
+ - match: "JIMMY JOHNS"
+   macro: "food"
+   micro: "fast"
+
+ # shopping
+ ## stuff
+ - match: "WALGREENS"
+   macro: "shopping"
+   micro: "stuff"
+ - match: "JO-ANN"
+   macro: "shopping"
+   micro: "stuff"
