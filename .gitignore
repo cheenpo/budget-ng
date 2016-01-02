@@ -1,3 +1,7 @@
+##
+*.db
+
+## default Node .gitignore stuff
 # Logs
 logs
 *.log
