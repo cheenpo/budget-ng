@@ -51,7 +51,4 @@ router.get("/transactions", function(req, res, next) {
  }
 });
 
-// GET chuck norris fact
- //files = fs.readdirSync(dir);
-
 module.exports = router;

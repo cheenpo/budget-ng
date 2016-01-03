@@ -70,7 +70,7 @@ fs.readFile(ingest_file, 'utf8', function (err, data) {
     }
    }
    if(macro == "unknown") {
-    console.log("[error] unable to categorize: "+description);
+    console.log("[error] unable to categorize: \n"+row);
     process.exit(1);
    }
    //
@@ -80,7 +80,7 @@ fs.readFile(ingest_file, 'utf8', function (err, data) {
    	}
    });
    if(conf.status_to_analyze == status) {
-    console.log("[info] insert: "+to_hash+" : "+macro+"."+micro);
+    console.log("[info] "+hash+" : "+to_hash+" : "+macro+"."+micro);
     db.run("INSERT OR IGNORE INTO budget (hash, year, month, day, amount, description, account, ignore, macro, micro) VALUES (?,?,?,?,?,?,?,?,?,?)", [hash, year, month, day, amount_to_insert, description, account, 0, macro, micro]);
    }
   });

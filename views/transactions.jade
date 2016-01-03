@@ -27,6 +27,7 @@ block content
     th macro
     th micro
     th description
+    th actions
 
    for transaction in data.transactions
     tr
@@ -37,6 +38,8 @@ block content
      td #{transaction.macro}
      td #{transaction.micro}
      td #{transaction.description}
+     td
+      span(class="glyphicon glyphicon-search", aria-hidden="true", onmouseover="this.style.cursor='pointer';")
 
 block pre-footer
  small #{data.row_count} rows
