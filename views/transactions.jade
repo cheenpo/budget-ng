@@ -1,0 +1,33 @@
+extends layout
+
+script.
+ function format_amount(amount) {
+  return amount;
+ }
+
+block header
+ h2#title latest transactions...
+
+block content
+ h3 #{data.year} 
+  small #{data.month}
+
+ if data.db_code != 0
+  div(class="alert alert-danger")
+   center db file does not exist...   oO
+ else
+  table(class="table table-condensed table-striped")
+   tr
+    th year
+    th month
+    th day
+    th amount
+    th description
+
+   for transaction in data.transactions
+    tr
+     td #{transaction.year}
+     td #{transaction.month}
+     td #{transaction.day}
+     td(style="#{formatAmountStyle(transaction.amount)}") #{formatAmount(transaction.amount)}
+     td #{transaction.description}
