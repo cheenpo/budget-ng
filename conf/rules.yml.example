@@ -9,14 +9,12 @@ rename_accounts:
 global_warning_amount: 10000
 # warnings (based on categories)
 warnings:
- - category: "unknown"
-   upper_limit: 0
+ - category: "home.mortgage"
+   upper_limit: 5001
  # can check for minimum expected value as well
  - category: "home.income"
    lower_limit: 8000
    upper_limit: 9000
- - category: "home.mortgage"
-   upper_limit: 5001
 # categorize transactions based on substring
 ## allows for a macro and micro level category
 categories:
