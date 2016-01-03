@@ -22,13 +22,29 @@ router.get("/", function(req, res, next) {
   json["conf_code"] = 0;
   //
   var conf = yaml.load(fs.readFileSync(conf_file));
-  json["categories"] = Array();
+  json["macro"] = {};
+  json["micro"] = {};
   var sqlite3 = require("sqlite3").verbose();
   var db = new sqlite3.Database(file);
-  json["sql"] = "SELECT * FROM budget WHERE year="+json["year"]+" AND month="+json["month_number"];
+  json["sql"] = "SELECT * FROM budget WHERE year="+json["year"]+" AND month="+json["month_number"]+" ORDER BY macro,micro";
   db.each(json["sql"], function(err, row) {
-   // calculate stuff
+   var macro = row["macro"];
+   var micro = row["macro"]+"."+row["micro"];
+   // macro
+   if(macro in json["macro"]) {
+    json["macro"][macro] += row["amount"];
+   } else {
+    json["macro"][macro] = row["amount"];
+   }
+   // micro
+   if(micro in json["micro"]) {
+    json["micro"][micro] += row["amount"];
+   } else {
+    json["micro"][micro] = row["amount"];
+   }
+   // warnings
   }, function(err, rows) {
+   json["row_count"] = rows;
    res.render("summary", { title: "budget-ng :: summary", data: json });
   });
   db.close();
