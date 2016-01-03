@@ -14,6 +14,9 @@ block content
  if data.db_code != 0
   div(class="alert alert-danger")
    center db file does not exist...   oO
+ else if data.row_count == 0
+  div(class="alert alert-warning")
+   center no transaction found...   oO
  else
   table(class="table table-condensed table-striped")
    tr
@@ -34,3 +37,6 @@ block content
      td #{transaction.macro}
      td #{transaction.micro}
      td #{transaction.description}
+
+block pre-footer
+ small #{data.row_count} rows

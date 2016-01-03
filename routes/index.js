@@ -40,6 +40,7 @@ router.get("/transactions", function(req, res, next) {
    json["month_number"] = row.month;
    json["month"] = monthNames[row.month];
   }, function(err, rows) {
+   json["row_count"] = rows;
    res.render("transactions", { title: "budget-ng :: transactions", data: json });
   });
   db.close();
