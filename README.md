@@ -10,7 +10,7 @@ node ./scripts/db_create.js
 ### ingest citibank export
 node scripts/ingest.js /PATH/TO/ExportData.csv conf/rules.yml
 ### enjoy the ux
-todo: start command here
+sudo npm start (sudo needed because of port 80)
 
 ## TODO
 - ux: ability to ignore charge
