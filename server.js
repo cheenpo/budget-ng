@@ -1,8 +1,18 @@
 var express = require("express");
-var app = express();
 var favicon = require('serve-favicon');
 var path = require('path');
 var logger = require('morgan');
+
+var app = express();
+
+var index = require('./routes/index');
+var transactions = require('./routes/transactions');
+var summary = require('./routes/summary');
+
+app.use(logger('common'));
+app.use('/', index);
+app.use('/transactions', transactions);
+app.use('/summary', summary);
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -16,10 +26,6 @@ app.use(function (req, res, next) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-var routes = require('./routes/index');
-
-app.use(logger('common'));
-app.use('/', routes);
 
 app.locals.formatAmountStyle = function(amount) {
  var color = "";
