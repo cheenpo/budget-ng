@@ -6,11 +6,10 @@ script.
  }
 
 block header
- h2#title latest transactions...
-
-block content
  h3 #{data.year} 
   small #{data.month}
+
+block content
 
  if data.db_code != 0
   div(class="alert alert-danger")
