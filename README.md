@@ -13,7 +13,6 @@ node scripts/ingest.js /PATH/TO/ExportData.csv conf/rules.yml
 todo: start command here
 
 ## TODO
-- ux: table of charges, with smart filters (date, macro/micro, hash)
 - ux: ability to ignore charge
 - ux: month view (macro/micro summations, warnings, etc...)
 - ux: macro, micro, and/or warning should be smart filter/search in table of charges

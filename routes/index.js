@@ -18,6 +18,9 @@ router.get("/transactions", function(req, res, next) {
  var monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
  if (json["year"] == undefined) { json["year"] = currentDate.getFullYear(); }
  if (json["month"] == undefined) { json["month"] = currentDate.getMonth()+1; }
+ if (json["hash"] == undefined) { json["hash"] = "%"; }
+ if (json["macro"] == undefined) { json["macro"] = "%"; }
+ if (json["micro"] == undefined) { json["micro"] = "%"; }
  json["month_number"] = json["month"];
  json["month"] = monthNames[json["month"]];
  if(exists) {
@@ -26,9 +29,16 @@ router.get("/transactions", function(req, res, next) {
   //
   var sqlite3 = require("sqlite3").verbose();
   var db = new sqlite3.Database(file);
-  json["sql"] = "SELECT * FROM budget WHERE year="+json["year"]+" AND month="+json["month_number"]+" ORDER BY year,month,day desc";
+  if (json["hash"] == "%") {
+   json["sql"] = "SELECT * FROM budget WHERE year="+json["year"]+" AND month="+json["month_number"]+" AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' ORDER BY year,month,day desc";
+  } else {
+   json["sql"] = "SELECT * FROM budget WHERE hash like '%"+json["hash"]+"%' ORDER BY year,month,day desc";
+  }
   db.each(json["sql"], function(err, row) {
    json["transactions"].push(row);
+   json["year"] = row.year;
+   json["month_number"] = row.month;
+   json["month"] = monthNames[row.month];
   }, function(err, rows) {
    res.render("transactions", { title: "budget-ng :: transactions", data: json });
   });

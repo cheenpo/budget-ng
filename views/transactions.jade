@@ -22,6 +22,8 @@ block content
     th month
     th day
     th amount
+    th macro
+    th micro
     th description
 
    for transaction in data.transactions
@@ -30,4 +32,6 @@ block content
      td #{transaction.month}
      td #{transaction.day}
      td(style="#{formatAmountStyle(transaction.amount)}") #{formatAmount(transaction.amount)}
+     td #{transaction.macro}
+     td #{transaction.micro}
      td #{transaction.description}
