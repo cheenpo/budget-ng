@@ -13,8 +13,13 @@ router.get("/", function(req, res, next) {
  if (json["year"] == undefined) { json["year"] = currentDate.getFullYear(); }
  if (json["month"] == undefined) { json["month"] = currentDate.getMonth()+1; }
  if (json["hash"] == undefined) { json["hash"] = "%"; }
- if (json["macro"] == undefined) { json["macro"] = "%"; }
- if (json["micro"] == undefined) { json["micro"] = "%"; }
+ if (json["category"] == undefined) {
+  json["macro"] = "%";
+  json["micro"] = "%";
+ } else {
+  json["macro"] = json["category"].split(".")[0];
+  json["micro"] = json["category"].split(".")[1];
+ }
  json["month_number"] = json["month"];
  json["month"] = monthNames[json["month"]];
  if(exists) {
