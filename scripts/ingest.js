@@ -6,7 +6,7 @@ var file = "db/budget.db";
 var exists = fs.existsSync(file);
 var ingest_file = process.argv[2];
 var ingest_file_exists = fs.existsSync(ingest_file);
-var conf_file = process.argv[3];
+var conf_file = "conf/rules.yml"
 var conf_file_exists = fs.existsSync(conf_file);
 
 if(!exists) {
