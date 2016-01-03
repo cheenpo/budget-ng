@@ -1,0 +1,17 @@
+extends layout
+
+block header
+ h3 #{data.year} 
+  small #{data.month}
+
+block content
+
+ if data.db_code != 0
+  div(class="alert alert-danger")
+   center db file does not exist...   oO
+ else if data.conf_code != 0
+  div(class="alert alert-danger")
+   center conf file does not exist...   oO
+ else
+  div(class="alert alert-info")
+   center breakdown
