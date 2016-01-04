@@ -38,7 +38,6 @@ app.locals.formatAmountStyle = function(amount) {
 }
 app.locals.formatAmount = function(amount) {
  return "$"+Math.abs(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
- return amount;
 }
 
 var port = 80;

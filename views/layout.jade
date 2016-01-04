@@ -4,6 +4,7 @@ html
     title= title
     script(src='/js/jquery-2.1.4.min.js')
     script(src='/js/bootstrap.min.js')
+    script(src='/js/j1.js')
     link(rel="stylesheet", href="/css/bootstrap.min.css")
     // link(rel="stylesheet", href="/css/bootstrap-theme.min.css")
     link(rel="stylesheet", href="/css/graphene-theme.min.css")
@@ -31,9 +32,17 @@ html
         a(href="/transactions") transactions 
          span(class="glyphicon glyphicon-th-list")
 
-   div(id="myModal", class="modal fade bs-example-modal-lg", tabindex="-1", role="dialog", aria-labelledby="myModal")
-    div(class="modal-dialog modal-lg")
+
+   div(id="myModal", class="modal fade", tabindex="-1", role="dialog")
+    div(class="modal-dialog")
      div(class="modal-content")
+      div(class="modal-header")
+       button(type="button", class="close", data-dismiss="modal", aria-label="close")
+        span(aria-hidden="true") &times;
+       h4(id="myModalTitle", class="modal-title") modal title
+      div(id="myModalBody", class="modal-body")
+       p One fine body&hellip;
+      div(class="modal-footer")
 
    block header
    block content
