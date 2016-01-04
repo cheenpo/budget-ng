@@ -24,26 +24,45 @@ router.get("/", function(req, res, next) {
   var conf = yaml.load(fs.readFileSync(conf_file));
   json["macro"] = {};
   json["micro"] = {};
+  json["warnings_transactional"] = Array();
+  json["warnings_category"] = Array();
   var sqlite3 = require("sqlite3").verbose();
   var db = new sqlite3.Database(file);
   json["sql"] = "SELECT * FROM budget WHERE year="+json["year"]+" AND month="+json["month_number"]+" ORDER BY macro,micro";
   db.each(json["sql"], function(err, row) {
+   var hash = row["hash"];
    var macro = row["macro"];
    var micro = row["macro"]+"."+row["micro"];
+   var amount = row["amount"]
    // macro
    if(macro in json["macro"]) {
-    json["macro"][macro] += row["amount"];
+    json["macro"][macro] += amount;
    } else {
-    json["macro"][macro] = row["amount"];
+    json["macro"][macro] = amount;
    }
    // micro
    if(micro in json["micro"]) {
-    json["micro"][micro] += row["amount"];
+    json["micro"][micro] += amount;
    } else {
-    json["micro"][micro] = row["amount"];
+    json["micro"][micro] = amount;
    }
-   // warnings
+   // warnings.global - per transaction
+   if(Math.abs(amount) > conf.global_warning_amount) {
+    var message = {"hash": hash, "category": micro, "amount": amount, "limit": conf.global_warning_amount, "comparison": ">"};
+    json["warnings_transactional"].push(message);
+   }
   }, function(err, rows) {
+   // warnings.all - overall
+   for(var micro in json["micro"]) {
+    var amount = json["micro"][micro];
+    for(var w=0; w < conf.warnings.length; w++) {
+     if ( (micro == conf.warnings[w].category) && (Math.abs(amount) > conf.warnings[w].upper_limit) ) {
+      var message = {"category": micro, "amount": amount, "limit": conf.warnings[w].upper_limit, "comparison": ">"};
+      json["warnings_category"].push(message);
+      break;
+     }
+    }
+   }
    json["row_count"] = rows;
    res.render("summary", { title: "budget-ng :: summary", data: json });
   });
