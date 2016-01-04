@@ -20,7 +20,6 @@ sudo npm start (sudo needed because of port 80)
 
 
 ## TODO
-- ux: drop down for available year-month selection
 - ux: graph over time (per category, total, percentage_saved)
 
 ## maybe in the future

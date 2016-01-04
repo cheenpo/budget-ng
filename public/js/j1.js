@@ -46,3 +46,15 @@ function ignoreTransaction(hash, ignore) {
   }
  });
 }
+
+function populateDropDown(ul,where) {
+ $.ajax({
+  url: "/api/months",
+  success: function(json) {
+   for(var i=0; i<json.length; i++) {
+    var entry = json[i];
+    $("#"+ul+" ul").append("<li><a href='/"+where+"/?year="+entry.year+"&month="+entry.month+"'>"+entry.year+" - "+entry.monthName+"</a></li>");
+   }
+  }
+ });
+}
