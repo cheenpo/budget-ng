@@ -72,6 +72,14 @@ router.get("/", function(req, res, next) {
     }
    }
    // computations
+   if ("income" in json["macro"]) {
+    // make sure it is != 0
+    if(json["macro"]["income"] == 0) {
+     json["macro"]["income"] = 1;
+    }
+   } else {
+    json["macro"]["income"] = 1;
+   }
    json["percentage_saved"] = Math.round((json["total"] / json["macro"]["income"])*10000)/100;
    res.render("summary", { title: "budget-ng :: summary", data: json });
   });
