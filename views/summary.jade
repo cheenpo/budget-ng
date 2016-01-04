@@ -46,7 +46,7 @@ block content
     for w in data.ignore
      div
       h3(onmouseover="this.style.cursor='pointer';" onclick="window.location='/transactions/?hash=#{w.hash}';") #{w.macro}.#{w.micro}
-       small #{formatAmount(w.amount)}
+       small(style="padding-left:13px; #{formatAmountStyle(w.amount)}") #{formatAmount(w.amount)}
 
   hr
 
@@ -62,7 +62,7 @@ block content
     for w in data.warnings_category
      div
       h3(onmouseover="this.style.cursor='pointer';" onclick="window.location='/transactions/?year=#{data.year}&month=#{data.month_number}&category=#{w.category}';") #{w.category} 
-       small #{formatAmount(w.amount)} #{w.comparison} #{formatAmount(w.limit)}
+       small(style="padding-left:13px; #{formatAmountStyle(w.amount)}") #{formatAmount(w.amount)} #{w.comparison} #{formatAmount(w.limit)}
   hr
 
   h2 Warnings 
@@ -77,7 +77,7 @@ block content
     for w in data.warnings_transactional
      div
       h3(onmouseover="this.style.cursor='pointer';" onclick="window.location='/transactions/?hash=#{w.hash}';") #{w.category} 
-       small #{formatAmount(w.amount)} #{w.comparison} #{formatAmount(w.limit)}
+       small(style="padding-left:13px; #{formatAmountStyle(w.amount)}") #{formatAmount(w.amount)} #{w.comparison} #{formatAmount(w.limit)}
 
   hr
 
