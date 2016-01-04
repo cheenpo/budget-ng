@@ -28,10 +28,26 @@ block content
 
    for transaction in data.transactions
     tr
-     td #{transaction.year}
-     td #{transaction.month}
-     td #{transaction.day}
-     td(style="#{formatAmountStyle(transaction.amount)}") #{formatAmount(transaction.amount)}
+     if transaction.ignore
+      td
+       strike #{transaction.year}
+     else
+      td #{transaction.year}
+     if transaction.ignore
+      td
+       strike #{transaction.month}
+     else
+      td #{transaction.month}
+     if transaction.ignore
+      td
+       strike #{transaction.day}
+     else
+      td(style="#{formatAmountStyle(transaction.amount)}") #{transaction.day}
+     if transaction.ignore
+      td(style="#{formatAmountStyle(transaction.amount)}")
+       strike #{formatAmount(transaction.amount)}
+     else
+      td #{formatAmount(transaction.amount)}
      td(onmouseover="this.style.cursor='pointer';", onclick="window.location='/transactions/?year=#{data.year}&month=#{data.month_number}&category=#{transaction.macro}.%';") #{transaction.macro}
      td(onmouseover="this.style.cursor='pointer';", onclick="window.location='/transactions/?year=#{data.year}&month=#{data.month_number}&category=#{transaction.macro}.#{transaction.micro}';") #{transaction.micro}
      if transaction.ignore
