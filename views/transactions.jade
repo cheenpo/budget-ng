@@ -34,9 +34,17 @@ block content
      td(style="#{formatAmountStyle(transaction.amount)}") #{formatAmount(transaction.amount)}
      td(onmouseover="this.style.cursor='pointer';", onclick="window.location='/transactions/?year=#{data.year}&month=#{data.month_number}&category=#{transaction.macro}.%';") #{transaction.macro}
      td(onmouseover="this.style.cursor='pointer';", onclick="window.location='/transactions/?year=#{data.year}&month=#{data.month_number}&category=#{transaction.macro}.#{transaction.micro}';") #{transaction.micro}
-     td #{transaction.description}
+     if transaction.ignore
+      td
+       strike #{transaction.description}
+     else
+      td #{transaction.description}
      td
       span(class="glyphicon glyphicon-search", aria-hidden="true", onmouseover="this.style.cursor='pointer';", onclick="showTransactionDetail('#{transaction.hash}');")
+      if transaction.ignore
+       span(style="", class="glyphicon glyphicon-ok", aria-hidden="true", onmouseover="this.style.cursor='pointer';", onclick="ignoreTransaction('#{transaction.hash}', 0);")
+      else
+       span(style="", class="glyphicon glyphicon-remove", aria-hidden="true", onmouseover="this.style.cursor='pointer';", onclick="ignoreTransaction('#{transaction.hash}', 1);")
 
 block pre-footer
  small #{data.row_count} rows @ 

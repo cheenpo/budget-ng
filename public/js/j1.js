@@ -36,3 +36,13 @@ function populateModal(hash) {
 function showModal() {
  $("#myModal").modal("show");
 }
+
+function ignoreTransaction(hash, ignore) {
+ $.ajax({
+  url: "/transactions/api/?hash="+hash+"&ignore="+ignore,
+  type: "PUT",
+  success: function(data) {
+   location.reload();
+  }
+ });
+}

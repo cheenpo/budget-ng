@@ -98,4 +98,23 @@ router.get("/api", function(req, res, next) {
  }
 });
 
+router.put("/api", function(req, res, next) {
+ var json = req.query;
+ if (json["hash"] == undefined) { json["hash"] = "%"; }
+ if(exists && json["hash"] != "%") {
+  json["db_code"] = 0;
+  //
+  var sqlite3 = require("sqlite3").verbose();
+  var db = new sqlite3.Database(file);
+  json["sql"] = "UPDATE budget SET ignore="+json["ignore"]+" WHERE hash='"+json["hash"]+"'";
+  db.run(json["sql"]);
+  db.close();
+  res.send(json);
+  //
+ } else {
+  json["db_code"] = 1;
+  res.send(json);
+ }
+});
+
 module.exports = router;
