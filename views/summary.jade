@@ -26,6 +26,22 @@ block content
 
   hr
 
+  h2 Ignored 
+   small transactions
+  if data.ignore.length == 0
+   div(class="alert alert-success")
+    center nothing ignored...   yay!
+  else
+   div(class="alert alert-danger")
+    center #{data.ignore.length} transactions ignored...   oO
+   div(style="padding-left:13px;")
+    for w in data.ignore
+     div
+      h3(onmouseover="this.style.cursor='pointer';" onclick="window.location='/transactions/?hash=#{w.hash}';") #{w.macro}.#{w.micro}
+       small #{formatAmount(w.amount)}
+
+  hr
+
   h2 Warnings 
    small category
   if data.warnings_category.length == 0

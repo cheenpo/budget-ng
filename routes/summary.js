@@ -22,6 +22,7 @@ router.get("/", function(req, res, next) {
   json["conf_code"] = 0;
   //
   var conf = yaml.load(fs.readFileSync(conf_file));
+  json["ignore"] = Array();
   json["macro"] = {};
   json["micro"] = {};
   json["warnings_transactional"] = Array();
@@ -30,26 +31,30 @@ router.get("/", function(req, res, next) {
   var db = new sqlite3.Database(file);
   json["sql"] = "SELECT * FROM budget WHERE year="+json["year"]+" AND month="+json["month_number"]+" ORDER BY macro,micro";
   db.each(json["sql"], function(err, row) {
-   var hash = row["hash"];
-   var macro = row["macro"];
-   var micro = row["macro"]+"."+row["micro"];
-   var amount = row["amount"]
-   // macro
-   if(macro in json["macro"]) {
-    json["macro"][macro] += amount;
+   if(row["ignore"] == 1) {
+    json["ignore"].push(row);
    } else {
-    json["macro"][macro] = amount;
-   }
-   // micro
-   if(micro in json["micro"]) {
-    json["micro"][micro] += amount;
-   } else {
-    json["micro"][micro] = amount;
-   }
-   // warnings.global - per transaction
-   if(Math.abs(amount) > conf.global_warning_amount) {
-    var message = {"hash": hash, "category": micro, "amount": amount, "limit": conf.global_warning_amount, "comparison": ">"};
-    json["warnings_transactional"].push(message);
+    var hash = row["hash"];
+    var macro = row["macro"];
+    var micro = row["macro"]+"."+row["micro"];
+    var amount = row["amount"]
+    // macro
+    if(macro in json["macro"]) {
+     json["macro"][macro] += amount;
+    } else {
+     json["macro"][macro] = amount;
+    }
+    // micro
+    if(micro in json["micro"]) {
+     json["micro"][micro] += amount;
+    } else {
+     json["micro"][micro] = amount;
+    }
+    // warnings.global - per transaction
+    if(Math.abs(amount) > conf.global_warning_amount) {
+     var message = {"hash": hash, "category": micro, "amount": amount, "limit": conf.global_warning_amount, "comparison": ">"};
+     json["warnings_transactional"].push(message);
+    }
    }
   }, function(err, rows) {
    // warnings.all - overall
