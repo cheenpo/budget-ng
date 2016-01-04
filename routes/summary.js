@@ -20,6 +20,7 @@ router.get("/", function(req, res, next) {
  if(exists && conf_file_exists) {
   json["db_code"] = 0;
   json["conf_code"] = 0;
+  json["total"] = 0;
   //
   var conf = yaml.load(fs.readFileSync(conf_file));
   json["ignore"] = Array();
@@ -38,6 +39,7 @@ router.get("/", function(req, res, next) {
     var macro = row["macro"];
     var micro = row["macro"]+"."+row["micro"];
     var amount = row["amount"]
+    json["total"] += amount;
     // macro
     if(macro in json["macro"]) {
      json["macro"][macro] += amount;
@@ -57,6 +59,7 @@ router.get("/", function(req, res, next) {
     }
    }
   }, function(err, rows) {
+   json["row_count"] = rows;
    // warnings.all - overall
    for(var micro in json["micro"]) {
     var amount = json["micro"][micro];
@@ -68,7 +71,8 @@ router.get("/", function(req, res, next) {
      }
     }
    }
-   json["row_count"] = rows;
+   // computations
+   json["percentage_saved"] = Math.round((json["total"] / json["macro"]["income"])*10000)/100;
    res.render("summary", { title: "budget-ng :: summary", data: json });
   });
   db.close();
