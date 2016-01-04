@@ -24,6 +24,7 @@ router.get("/", function(req, res, next) {
  json["month"] = monthNames[json["month"]];
  if(exists) {
   json["db_code"] = 0;
+  json["total"] = 0;
   json["transactions"] = Array();
   //
   var sqlite3 = require("sqlite3").verbose();
@@ -38,6 +39,7 @@ router.get("/", function(req, res, next) {
    json["year"] = row.year;
    json["month_number"] = row.month;
    json["month"] = monthNames[row.month];
+   json["total"] += row.amount;
   }, function(err, rows) {
    json["row_count"] = rows;
    res.render("transactions", { title: "budget-ng :: transactions", data: json });
