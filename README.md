@@ -20,9 +20,8 @@ sudo npm start (sudo needed because of port 80)
 
 
 ## TODO
-- ux: summary graphic
-(after ingesting multiple months)
-- ux: graph over time (per category, net, etc...)
+- ux: drop down for available year-month selection
+- ux: graph over time (per category, total, percentage_saved)
 
 ## maybe in the future
 - ingestion: ux
