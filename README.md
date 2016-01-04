@@ -21,7 +21,6 @@ sudo npm start (sudo needed because of port 80)
 
 ## TODO
 - ux: ability to ignore charge
-- ux: month view (warnings)
 (after ingesting multiple months)
 - ux: graph over time (per category, net, etc...)
 
