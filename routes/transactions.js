@@ -35,6 +35,11 @@ router.get("/", function(req, res, next) {
    json["sql"] = "SELECT * FROM budget WHERE hash like '%"+json["hash"]+"%' ORDER BY year,month,day desc";
   }
   db.each(json["sql"], function(err, row) {
+   if(row.ignore) {
+    row["ignore_class"] = "warning";
+   } else {
+    row["ignore_class"] = "";
+   }
    json["transactions"].push(row);
    json["year"] = row.year;
    json["month_number"] = row.month;

@@ -27,7 +27,7 @@ block content
     th actions
 
    for transaction in data.transactions
-    tr
+    tr(class="#{transaction.ignore_class}")
      if transaction.ignore
       td
        strike #{transaction.year}
