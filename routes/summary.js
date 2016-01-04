@@ -81,6 +81,13 @@ router.get("/", function(req, res, next) {
     json["macro"]["income"] = 1;
    }
    json["percentage_saved"] = Math.round((json["total"] / json["macro"]["income"])*10000)/100;
+   // graph data
+   json["graph"] = Array();
+   for(var macro in json["macro"]) {
+    if(macro != "income") {
+     json["graph"].push({label: macro, data: json["macro"][macro]});
+    }
+   }
    res.render("summary", { title: "budget-ng :: summary", data: json });
   });
   db.close();
