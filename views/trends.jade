@@ -1,8 +1,10 @@
 extends layout
 
+block import
+ script(src='/js/jquery.flot.min.js')
+ script(src='/js/jquery.flot.categories.min.js')
+
 block header
- small(style="padding-left:13px;", onmouseover="this.style.cursor='pointer';", onclick="window.location='/summary/?year=#{data.year}&month=#{data.month_number}'") summary
- small(style="padding-left:13px;", onmouseover="this.style.cursor='pointer';", onclick="window.location='/transactions/?year=#{data.year}&month=#{data.month_number}'") transactions
 
 block content
 
@@ -18,14 +20,14 @@ block content
  else
   h2 Total 
    small(id="s_total") -
-  div(id="total", style="height:300px;")
+  div(id="total", style="height:150px;")
   h2 Percentage Saved
    small(id="s_percentage_saved") -
-  div(id="percentage_saved", style="height:300px;")
+  div(id="percentage_saved", style="height:150px;")
   h2 Macro
-  div(id="macro", style="height:300px;")
-  h2 Micro
-  div(id="micro", style="height:300px;")
+   small(id="s_macro") -
+  div(id="macro", style="height:500px;")
+
   br
   br
 
@@ -34,7 +36,7 @@ block footer
   window.onload = function() {
    // total
    $.plot("#total", [ !{JSON.stringify(data.total)} ], {
-    series: {bars: {show: true, barWidth: 0.9, align: "center"}},
+    series: {lines: {show: true}, points: {show: true}},
     xaxis: {mode: "categories",tickLength: 0},
     grid: {hoverable: true,clickable: true},
    });
@@ -54,7 +56,7 @@ block footer
    });
    // percentage_saved
    $.plot("#percentage_saved", [ !{JSON.stringify(data.percentage_saved)} ], {
-    series: {bars: {show: true, barWidth: 0.9, align: "center"}},
+    series: {lines: {show: true}, points: {show: true}},
     xaxis: {mode: "categories",tickLength: 0},
     grid: {hoverable: true,clickable: true},
    });
@@ -70,6 +72,66 @@ block footer
    $("#percentage_saved").bind("plothover", function (event, pos, item) {
     if(item) {
      document.getElementById("s_percentage_saved").innerHTML = "<span style='padding-left:7px; "+formatAmountStyle(item.series.data[item.dataIndex][1])+"'>"+item.series.data[item.dataIndex][1]+" %</span>";
+    }
+   });
+   // macro
+   var macro_data = Array();
+   var macro_json = !{JSON.stringify(data.macro)};
+   var macro_cache = {};
+   var date_cache = Array();
+   for(var i=0; i < macro_json.length; i++ ) {
+    var entry = macro_json[i];
+    var date = entry[0];
+    date_cache.push(date);
+    var macros = entry[1];
+    for(var k in macros) {
+     var v = macros[k];
+     if(k in macro_cache) {
+      macro_cache[k].push([date, v]);
+     } else {
+      macro_cache[k] = Array();
+      macro_cache[k].push([date, v]);
+     }
+    }
+   }
+   // make sure each macro_cache entry has a value for each date
+   for(var i=0; i < date_cache.length; i++ ) {
+    var date = date_cache[i];
+    for(var macro in macro_cache) {
+     var data = macro_cache[macro];
+     var need_to_add = false;
+     if(i >= data.length) {
+      need_to_add = true;
+     } else if(data[i][0] != date) {
+      need_to_add = true;
+     } else {}
+     if(need_to_add) {
+     macro_cache[macro].splice(i, 0, [date,0]);
+     }
+    }
+   }
+   //
+   for(var macro in macro_cache) {
+    macro_data.push({data: macro_cache[macro], label: macro});
+   }
+   $.plot("#macro", macro_data , {
+    series: {lines: {show: true}},
+    xaxis: {mode: "categories",tickLength: 0},
+    grid: {hoverable: true,clickable: true},
+    legend: {show: true, noColumns: 10, position:"nw"}
+   });
+   $("#macro").bind("plotclick", function (event, pos, item) {
+    if(item) {
+     var date = item.series.data[item.dataIndex][0];
+     var year = date.split("-")[0];
+     var month = date.split("-")[1];
+     var value = item.series.data[item.dataIndex][1];
+     window.location="/transactions/?year="+year+"&month="+month+"&category="+item.series.label+".%";
+    }
+   });
+   $("#macro").bind("plothover", function (event, pos, item) {
+    if(item) {
+     document.getElementById("s_macro").innerHTML = "<span style='padding-left:7px; "+formatAmountStyle(item.series.data[item.dataIndex][1])+"'>"+item.series.label+" "+formatAmount(item.series.data[item.dataIndex][1])+"</span>";
     }
    });
   }

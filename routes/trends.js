@@ -22,6 +22,7 @@ router.get("/", function(req, res, next) {
   json["negative"] = Array();
   json["total"] = Array();
   json["percentage_saved"] = Array();
+  json["macro"] = Array();
   var sqlite3 = require("sqlite3").verbose();
   var db = new sqlite3.Database(file);
   json["sql"] = "SELECT * FROM budget ORDER BY year asc,month asc,day asc";
@@ -43,6 +44,7 @@ router.get("/", function(req, res, next) {
     json["negative"].push([last_date, entry["negative"]]);
     json["total"].push([last_date, entry["total"]]);
     json["percentage_saved"].push([last_date, Math.round((entry["total"] / entry["macro"]["income"])*10000)/100]);
+    json["macro"].push([last_date, entry["macro"]]);
     entry = {"positive": 0, "negative": 0, "total": 0, "percentage_saved": 0, "macro": {}};
    }
    var positive = 0;
@@ -74,11 +76,13 @@ router.get("/", function(req, res, next) {
    json["negative"].push([last_date, entry["negative"]]);
    json["total"].push([last_date, entry["total"]]);
    json["percentage_saved"].push([last_date, Math.round((entry["total"] / entry["macro"]["income"])*10000)/100]);
+   json["macro"].push([last_date, entry["macro"]]);
    // shift off that silly first entry
    json["positive"].shift();
    json["negative"].shift();
    json["total"].shift();
    json["percentage_saved"].shift();
+   json["macro"].shift();
    //
    res.render("trends", { title: "budget-ng :: trends", data: json });
   });
