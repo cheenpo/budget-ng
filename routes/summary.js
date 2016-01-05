@@ -30,7 +30,7 @@ router.get("/", function(req, res, next) {
   json["warnings_category"] = Array();
   var sqlite3 = require("sqlite3").verbose();
   var db = new sqlite3.Database(file);
-  json["sql"] = "SELECT * FROM budget WHERE year="+json["year"]+" AND month="+json["month_number"]+" ORDER BY macro,micro";
+  json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month like '%"+json["month_number"]+"%' ORDER BY macro,micro";
   db.each(json["sql"], function(err, row) {
    if(row["ignore"] == 1) {
     json["ignore"].push(row);
