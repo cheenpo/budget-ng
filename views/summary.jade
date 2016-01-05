@@ -43,52 +43,46 @@ block content
 
   hr
 
-  h2 Ignored 
-   small transactions
   if data.ignore.length == 0
-   div(class="alert alert-success")
-    center nothing ignored...   yay!
+   //div(class="alert alert-success")
+   // center nothing ignored...   yay!
   else
-   div(class="alert alert-warning")
-    center #{data.ignore.length} transactions ignored...   oO
+   h2(style="color:#E5B729;") Ignored 
+    small transactions (#{data.ignore.length})
    div(style="padding-left:13px;")
     for w in data.ignore
      div
       h3(onmouseover="this.style.cursor='pointer';" onclick="window.location='/transactions/?hash=#{w.hash}';") #{w.macro}.#{w.micro}
        small(style="padding-left:13px; #{formatAmountStyle(w.amount)}") #{formatAmount(w.amount)}
 
-  hr
+   hr
 
-  h2 Warnings 
-   small category
   if data.warnings_category.length == 0
-   div(class="alert alert-success")
-    center no category warnings...   yay!
+   //div(class="alert alert-success")
+   // center no category warnings...   yay!
   else
-   div(class="alert alert-danger")
-    center #{data.warnings_category.length} category warnings...   oO
+   h2(style="color:#FC3D39;") Warnings 
+    small category (#{data.warnings_category.length})
    div(style="padding-left:13px;")
     for w in data.warnings_category
      div
       h3(onmouseover="this.style.cursor='pointer';" onclick="window.location='/transactions/?year=#{data.year}&month=#{data.month_number}&category=#{w.category}';") #{w.category} 
        small(style="padding-left:13px; #{formatAmountStyle(w.amount)}") #{formatAmount(w.amount)} #{w.comparison} #{formatAmount(w.limit)}
-  hr
+   hr
 
-  h2 Warnings 
-   small transactional
   if data.warnings_transactional.length == 0
-   div(class="alert alert-success")
-    center no transactional warnings...   yay!
+   //div(class="alert alert-success")
+   // center no transactional warnings...   yay!
   else
-   div(class="alert alert-danger")
-    center #{data.warnings_transactional.length} transactional warnings...   oO
+   h2(style="color:#FC3D39;") Warnings 
+    small transactional (#{data.warnings_transactional.length})
    div(style="padding-left:13px;")
     for w in data.warnings_transactional
      div
       h3(onmouseover="this.style.cursor='pointer';" onclick="window.location='/transactions/?hash=#{w.hash}';") #{w.category} 
        small(style="padding-left:13px; #{formatAmountStyle(w.amount)}") #{formatAmount(w.amount)} #{w.comparison} #{formatAmount(w.limit)}
 
-  hr
+   hr
 
   h2 Details
   div(style="padding-left:13px;")
