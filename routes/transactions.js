@@ -30,7 +30,7 @@ router.get("/", function(req, res, next) {
   var sqlite3 = require("sqlite3").verbose();
   var db = new sqlite3.Database(file);
   if (json["hash"] == "%") {
-   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month like '%"+json["month_number"]+"%' AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' ORDER BY year,month,day desc";
+   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month like '%"+json["month_number"]+"%' AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' ORDER BY year desc,month desc,day desc";
   } else {
    json["sql"] = "SELECT * FROM budget WHERE hash like '%"+json["hash"]+"%' ORDER BY year,month,day desc";
   }
