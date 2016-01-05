@@ -20,8 +20,5 @@ sudo npm start (sudo needed because of port 80)
 
 
 ## TODO
-- ux: graph over time (per category, total, percentage_saved)
-
-## maybe in the future
 - ingestion: ux
 
