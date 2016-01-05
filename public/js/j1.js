@@ -1,3 +1,18 @@
+// globals
+var macro_plot = null;
+// functions
+function togglePlot(plot, label) {
+ var someData = plot.getData();
+ for(var i=0; i < someData.length; i++) {
+  if(label == someData[i].label) {
+    someData.splice(i, 1);
+  }
+ }
+ plot.setData(someData);
+ plot.setupGrid();
+ plot.draw();
+}
+
 function showTransactionDetail(hash) {
  populateModal(hash);
  showModal();

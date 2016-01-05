@@ -114,11 +114,18 @@ block footer
    for(var macro in macro_cache) {
     macro_data.push({data: macro_cache[macro], label: macro});
    }
-   $.plot("#macro", macro_data , {
+   macro_plot = $.plot("#macro", macro_data , {
     series: {lines: {show: true}},
     xaxis: {mode: "categories",tickLength: 0},
     grid: {hoverable: true,clickable: true},
-    legend: {show: true, noColumns: 10, position:"nw"}
+    legend: {
+     show: true,
+     labelFormatter: function(label, series){
+      return "<a style='padding-right:7px;' onmouseover=\"this.style.cursor='pointer';\" onclick=\"togglePlot(macro_plot, '"+label+"');\">"+label+"</a>";
+     },
+     noColumns: 10,
+     position:"nw"
+    }
    });
    $("#macro").bind("plotclick", function (event, pos, item) {
     if(item) {
