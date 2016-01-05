@@ -1,5 +1,9 @@
 extends layout
 
+block import
+ script(src='/js/jquery.flot.min.js')
+ script(src='/js/jquery.flot.pie.min.js')
+
 block header
  h3 #{data.year} 
   small #{data.month}
