@@ -58,3 +58,16 @@ function populateDropDown(ul,where) {
   }
  });
 }
+
+function formatAmountStyle(amount) {
+ var color = "";
+ if(amount > 0) {
+  color = "53D769";
+ } else {
+  color = "FC3D39";
+ }
+ return "text-align: right; position:relative; right:5px; color: #"+color;
+}
+function formatAmount(amount) {
+ return "$"+Math.abs(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

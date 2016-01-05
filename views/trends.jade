@@ -1,0 +1,75 @@
+extends layout
+
+block header
+ small(style="padding-left:13px;", onmouseover="this.style.cursor='pointer';", onclick="window.location='/summary/?year=#{data.year}&month=#{data.month_number}'") summary
+ small(style="padding-left:13px;", onmouseover="this.style.cursor='pointer';", onclick="window.location='/transactions/?year=#{data.year}&month=#{data.month_number}'") transactions
+
+block content
+
+ if data.db_code != 0
+  div(class="alert alert-danger")
+   center db file does not exist...   oO
+ else if data.conf_code != 0
+  div(class="alert alert-danger")
+   center conf file does not exist...   oO
+ else if data.row_count == 0
+  div(class="alert alert-warning")
+   center no transactions found...   oO
+ else
+  h2 Total 
+   small(id="s_total") -
+  div(id="total", style="height:300px;")
+  h2 Percentage Saved
+   small(id="s_percentage_saved") -
+  div(id="percentage_saved", style="height:300px;")
+  h2 Macro
+  div(id="macro", style="height:300px;")
+  h2 Micro
+  div(id="micro", style="height:300px;")
+  br
+  br
+
+block footer
+ script.  
+  window.onload = function() {
+   // total
+   $.plot("#total", [ !{JSON.stringify(data.total)} ], {
+    series: {bars: {show: true, barWidth: 0.9, align: "center"}},
+    xaxis: {mode: "categories",tickLength: 0},
+    grid: {hoverable: true,clickable: true},
+   });
+   $("#total").bind("plotclick", function (event, pos, item) {
+    if(item) {
+     var date = item.series.data[item.dataIndex][0];
+     var year = date.split("-")[0];
+     var month = date.split("-")[1];
+     var value = item.series.data[item.dataIndex][1];
+     window.location="/summary/?year="+year+"&month="+month;
+    }
+   });
+   $("#total").bind("plothover", function (event, pos, item) {
+    if(item) {
+     document.getElementById("s_total").innerHTML = "<span style='"+formatAmountStyle(item.series.data[item.dataIndex][1])+"'>"+formatAmount(item.series.data[item.dataIndex][1])+"</span>";
+    }
+   });
+   // percentage_saved
+   $.plot("#percentage_saved", [ !{JSON.stringify(data.percentage_saved)} ], {
+    series: {bars: {show: true, barWidth: 0.9, align: "center"}},
+    xaxis: {mode: "categories",tickLength: 0},
+    grid: {hoverable: true,clickable: true},
+   });
+   $("#percentage_saved").bind("plotclick", function (event, pos, item) {
+    if(item) {
+     var date = item.series.data[item.dataIndex][0];
+     var year = date.split("-")[0];
+     var month = date.split("-")[1];
+     var value = item.series.data[item.dataIndex][1];
+     window.location="/summary/?year="+year+"&month="+month;
+    }
+   });
+   $("#percentage_saved").bind("plothover", function (event, pos, item) {
+    if(item) {
+     document.getElementById("s_percentage_saved").innerHTML = "<span style='padding-left:7px; "+formatAmountStyle(item.series.data[item.dataIndex][1])+"'>"+item.series.data[item.dataIndex][1]+" %</span>";
+    }
+   });
+  }
