@@ -1,9 +1,9 @@
 # budget-ng
 
 ## idea
-kicked mint.com to the curb, then got antsy and started to re-write something basic for it (pure cli)... then frowned at that and wrote this to be cleaner
+kicked mint.com to the curb, then got antsy and started to re-write something basic for it (pure cli; https://github.com/cheenpo/budget)... then frowned at that and wrote this to be more boomsauce   >:)
 
-currently only aimed at citibank transaction imports... but others would not be too big of a deal (shrugs)
+currently only aimed at citibank transaction imports... but maybe I should add more types of impors and via the ux vs the cli and make this super spicy boomsauce   (shrugs)
 
 to use (reference 'getting started' section below), you would initialize the db, ingest some transactions (slowly building your categorization rules in rules.yml), and then start the ux and enjoy.
 
