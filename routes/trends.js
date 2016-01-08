@@ -83,6 +83,12 @@ router.get("/", function(req, res, next) {
    json["total"].shift();
    json["percentage_saved"].shift();
    json["macro"].shift();
+   // pop off the last entry since it is in progress
+   json["positive"].pop();
+   json["negative"].pop();
+   json["total"].pop();
+   json["percentage_saved"].pop();
+   json["macro"].pop();
    //
    res.render("trends", { title: "budget-ng :: trends", data: json });
   });
