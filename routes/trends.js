@@ -89,6 +89,18 @@ router.get("/", function(req, res, next) {
    json["total"].pop();
    json["percentage_saved"].pop();
    json["macro"].pop();
+   // calculate average total
+   var total_sum = 0;
+   for(var i=0; i < json["total"].length; i++) {
+    total_sum += json["total"][i][1];
+   }
+   json["average_total"] = total_sum / json["total"].length;
+   // calculate average percentage_saved
+   var percentage_saved_sum = 0;
+   for(var i=0; i < json["percentage_saved"].length; i++) {
+    percentage_saved_sum += json["percentage_saved"][i][1];
+   }
+   json["average_percentage_saved"] = Math.round(percentage_saved_sum / json["percentage_saved"].length);
    //
    res.render("trends", { title: "budget-ng :: trends", data: json });
   });

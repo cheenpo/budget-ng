@@ -19,13 +19,15 @@ block content
    center no transactions found...   oO
  else
   h2 Total 
-   small(id="s_total") -
+   small(id="s_total")
+   small(id="s_average_total" style="padding-left:7px;")
   div(id="total", style="height:150px;")
   h2 Percentage Saved
-   small(id="s_percentage_saved") -
+   small(id="s_percentage_saved")
+   small(id="s_average_percentage_saved" style="padding-left:7px;")
   div(id="percentage_saved", style="height:150px;")
   h2 Macro
-   small(id="s_macro") -
+   small(id="s_macro")
   div(id="macro", style="height:500px;")
 
   br
@@ -39,7 +41,7 @@ block footer
     series: {color: "black", lines: {show: true}, points: {show: true, radius: 1, lineWidth: 5}},
     xaxis: {mode: "categories",tickLength: 0},
     yaxis: {tickFormatter: function(val, axis) { return "<span style='"+formatAmountStyle(val)+"'>"+formatAmount(val)+"</span>";}},
-    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"red"}]}
+    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"#FC3D39"}, {yaxis:{from:!{JSON.stringify(data.average_total)}, to:!{JSON.stringify(data.average_total)}}, color:"#1477D5"}]}
    });
    $("#total").bind("plotclick", function (event, pos, item) {
     if(item) {
@@ -53,6 +55,9 @@ block footer
    $("#total").bind("plothover", function (event, pos, item) {
     if(item) {
      document.getElementById("s_total").innerHTML = "<span style='"+formatAmountStyle(item.series.data[item.dataIndex][1])+"'>"+formatAmount(item.series.data[item.dataIndex][1])+"</span>";
+     var average_total=!{JSON.stringify(data.average_total)};
+     var diff = item.series.data[item.dataIndex][1] - average_total;
+     document.getElementById("s_average_total").innerHTML = "(<span style='"+formatAmountStyle(diff)+"'>"+formatAmount(diff)+"</span> of avg: "+formatAmount(average_total)+")";
     }
    });
    // percentage_saved
@@ -60,7 +65,7 @@ block footer
     series: {color: "black", lines: {show: true}, points: {show: true, radius: 1, lineWidth: 5}},
     xaxis: {mode: "categories",tickLength: 0},
     yaxis: {tickFormatter: function(val, axis) { return "<span style='"+formatAmountStyle(val)+"'>"+val+"%</span>";}},
-    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"red"}]}
+    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"#FC3D39"}, {yaxis:{from:!{JSON.stringify(data.average_percentage_saved)}, to:!{JSON.stringify(data.average_percentage_saved)}}, color:"#1477D5"}]}
    });
    $("#percentage_saved").bind("plotclick", function (event, pos, item) {
     if(item) {
@@ -74,6 +79,9 @@ block footer
    $("#percentage_saved").bind("plothover", function (event, pos, item) {
     if(item) {
      document.getElementById("s_percentage_saved").innerHTML = "<span style='padding-left:7px; "+formatAmountStyle(item.series.data[item.dataIndex][1])+"'>"+item.series.data[item.dataIndex][1]+" %</span>";
+     var average_percentage_saved=!{JSON.stringify(data.average_percentage_saved)};
+     var diff = Math.round(item.series.data[item.dataIndex][1] - average_percentage_saved);
+     document.getElementById("s_average_percentage_saved").innerHTML = "(<span style='"+formatAmountStyle(diff)+"'>"+diff+"%</span> of avg: "+average_percentage_saved+"%)";
     }
    });
    // macro
@@ -120,7 +128,7 @@ block footer
     series: {lines: {show: true}, points: {show: true, radius: 1, lineWidth: 5}},
     xaxis: {mode: "categories",tickLength: 0},
     yaxis: {tickFormatter: function(val, axis) { return "<span style='"+formatAmountStyle(val)+"'>"+formatAmount(val)+"</span>";}},
-    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"red"}]},
+    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"#FC3D39"}]},
     legend: {
      show: true,
      labelFormatter: function(label, series){
