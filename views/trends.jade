@@ -36,10 +36,10 @@ block footer
   window.onload = function() {
    // total
    $.plot("#total", [ !{JSON.stringify(data.total)} ], {
-    series: {color: "black", lines: {show: true}, points: {show: true, radius: 1, lineWidth: 13}},
+    series: {color: "black", lines: {show: true}, points: {show: true, radius: 1, lineWidth: 5}},
     xaxis: {mode: "categories",tickLength: 0},
     yaxis: {tickFormatter: function(val, axis) { return "<span style='"+formatAmountStyle(val)+"'>"+formatAmount(val)+"</span>";}},
-    grid: {hoverable: true,clickable: true}
+    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"red"}]}
    });
    $("#total").bind("plotclick", function (event, pos, item) {
     if(item) {
@@ -57,10 +57,10 @@ block footer
    });
    // percentage_saved
    $.plot("#percentage_saved", [ !{JSON.stringify(data.percentage_saved)} ], {
-    series: {color: "black", lines: {show: true}, points: {show: true, radius: 1, lineWidth: 13}},
+    series: {color: "black", lines: {show: true}, points: {show: true, radius: 1, lineWidth: 5}},
     xaxis: {mode: "categories",tickLength: 0},
     yaxis: {tickFormatter: function(val, axis) { return "<span style='"+formatAmountStyle(val)+"'>"+val+"%</span>";}},
-    grid: {hoverable: true,clickable: true}
+    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"red"}]}
    });
    $("#percentage_saved").bind("plotclick", function (event, pos, item) {
     if(item) {
@@ -117,10 +117,10 @@ block footer
     macro_data.push({data: macro_cache[macro], label: macro});
    }
    macro_plot = $.plot("#macro", macro_data , {
-    series: {lines: {show: true}, points: {show: true, radius: 1, lineWidth: 7}},
+    series: {lines: {show: true}, points: {show: true, radius: 1, lineWidth: 5}},
     xaxis: {mode: "categories",tickLength: 0},
     yaxis: {tickFormatter: function(val, axis) { return "<span style='"+formatAmountStyle(val)+"'>"+formatAmount(val)+"</span>";}},
-    grid: {hoverable: true,clickable: true},
+    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"red"}]},
     legend: {
      show: true,
      labelFormatter: function(label, series){
