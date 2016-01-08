@@ -18,6 +18,10 @@ node scripts/ingest.js /PATH/TO/ExportData.csv
 ### enjoy the ux
 sudo npm start (sudo needed because of port 80)
 
+## helpful
+### test to make sure everything is ok
+npm test
+
 
 ## TODO
 - ingestion: ux

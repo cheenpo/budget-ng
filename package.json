@@ -16,7 +16,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo 'nothing to see here' && exit 0",
+    "test": "node scripts/test.js",
     "start": "node server.js"
   },
   "repository": {
