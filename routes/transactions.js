@@ -13,6 +13,7 @@ router.get("/", function(req, res, next) {
  if (json["year"] == undefined) { json["year"] = currentDate.getFullYear(); }
  if (json["month"] == undefined) { json["month"] = currentDate.getMonth()+1; }
  if (json["hash"] == undefined) { json["hash"] = "%"; }
+ if (json["ignore"] == undefined) { json["ignore"] = "%"; }
  if (json["category"] == undefined) {
   json["macro"] = "%";
   json["micro"] = "%";
@@ -32,9 +33,9 @@ router.get("/", function(req, res, next) {
   if (json["hash"] != "%") {
    json["sql"] = "SELECT * FROM budget WHERE hash like '%"+json["hash"]+"%' ORDER BY year,month,day desc";
   } else if (json["month_number"] != "%") {
-   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month="+json["month_number"]+" AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' ORDER BY year desc,month desc,day desc";
+   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month="+json["month_number"]+" AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' AND ignore like '%"+json["ignore"]+"%' ORDER BY year desc,month desc,day desc";
   } else {
-   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month like '%"+json["month_number"]+"%' AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' ORDER BY year desc,month desc,day desc";
+   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month like '%"+json["month_number"]+"%' AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' AND ignore like '%"+json["ignore"]+"%' ORDER BY year desc,month desc,day desc";
   }
   db.each(json["sql"], function(err, row) {
    if(row.ignore) {
@@ -68,6 +69,7 @@ router.get("/api", function(req, res, next) {
  if (json["year"] == undefined) { json["year"] = currentDate.getFullYear(); }
  if (json["month"] == undefined) { json["month"] = currentDate.getMonth()+1; }
  if (json["hash"] == undefined) { json["hash"] = "%"; }
+ if (json["ignore"] == undefined) { json["ignore"] = "%"; }
  if (json["category"] == undefined) {
   json["macro"] = "%";
   json["micro"] = "%";
@@ -87,9 +89,9 @@ router.get("/api", function(req, res, next) {
   if (json["hash"] != "%") {
    json["sql"] = "SELECT * FROM budget WHERE hash like '%"+json["hash"]+"%' ORDER BY year,month,day desc";
   } else if (json["month_number"] != "%") {
-   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month="+json["month_number"]+" AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' ORDER BY year desc,month desc,day desc";
+   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month="+json["month_number"]+" AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' AND ignore like '%"+json["ignore"]+"%' ORDER BY year desc,month desc,day desc";
   } else {
-   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month like '%"+json["month_number"]+"%' AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' ORDER BY year desc,month desc,day desc";
+   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month like '%"+json["month_number"]+"%' AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' AND ignore like '%"+json["ignore"]+"%' ORDER BY year desc,month desc,day desc";
   }
   db.each(json["sql"], function(err, row) {
    json["transactions"].push(row);
