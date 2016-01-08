@@ -46,7 +46,9 @@ router.get("/", function(req, res, next) {
    json["year"] = row.year;
    json["month_number"] = row.month;
    json["month"] = monthNames[row.month];
-   json["total"] += row.amount;
+   if(!row.ignore) {
+    json["total"] += row.amount;
+   }
   }, function(err, rows) {
    json["row_count"] = rows;
    res.render("transactions", { title: "budget-ng :: transactions", data: json });
