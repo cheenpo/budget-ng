@@ -16,7 +16,7 @@ var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database(file);
 
 db.serialize(function() {
- db.each("SELECT * FROM budget WHERE hash='0fbeb3f3c876f55fdcf3e4962b2e4815'", function(err, row) {
+ db.each("SELECT * FROM budget WHERE hash='"+hash+"'", function(err, row) {
   console.log(row);
  });
 });
