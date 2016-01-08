@@ -21,6 +21,13 @@ sudo npm start (sudo needed because of port 80)
 ## helpful
 ### test to make sure everything is ok
 npm test
+### surgical tools
+#### show a specific hash (cli)
+node ./scripts/db_dump_hash.js $hash
+#### delete a specific hash (cli)
+node ./scripts/db_delete_hash.js $hash
+#### insert custom data (cli)
+node ./scripts/db_insert_data.js
 
 
 ## TODO
