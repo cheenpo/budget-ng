@@ -36,7 +36,7 @@ app.locals.formatAmountStyle = function(amount) {
  } else {
   color = "FC3D39";
  }
- return "text-align: right; position:relative; right:5px; color: #"+color;
+ return "text-align: right; position:relative; padding-right:5px; color: #"+color;
 }
 app.locals.formatAmount = function(amount) {
  return "$"+Math.abs(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");

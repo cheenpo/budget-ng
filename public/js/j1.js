@@ -81,7 +81,7 @@ function formatAmountStyle(amount) {
  } else {
   color = "FC3D39";
  }
- return "text-align: right; position:relative; right:5px; color: #"+color;
+ return "text-align: right; position:relative; padding-right:5px; color: #"+color;
 }
 function formatAmount(amount) {
  return "$"+Math.abs(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
