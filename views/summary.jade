@@ -10,7 +10,7 @@ block header
   small(style="padding-left:13px;", onmouseover="this.style.cursor='pointer';", onclick="window.location='/transactions/?year=#{data.year}&month=#{data.month_number}'") transactions
  div(id="selectSummary", class="dropdown dropdown-menu-right", style="position:absolute; top:55px; right:50px;")
   button(class="btn btn-default dropdown-toggle", type="button", id="dropdownMenu1", data-toggle="dropdown", aria-haspopup="true")
-   span year-month 
+   span #{data.year}-#{data.month} 
    span(class="caret")
   ul(class="dropdown-menu", aria-labelledby="dropdownMenu1")
 
