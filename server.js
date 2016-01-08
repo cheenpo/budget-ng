@@ -31,7 +31,7 @@ app.set('view engine', 'jade');
 
 app.locals.formatAmountStyle = function(amount) {
  var color = "";
- if(amount > 0) {
+ if(amount >= 0) {
   color = "53D769";
  } else {
   color = "FC3D39";

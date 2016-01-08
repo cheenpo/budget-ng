@@ -76,7 +76,7 @@ function populateDropDown(ul,where) {
 
 function formatAmountStyle(amount) {
  var color = "";
- if(amount > 0) {
+ if(amount >= 0) {
   color = "53D769";
  } else {
   color = "FC3D39";
