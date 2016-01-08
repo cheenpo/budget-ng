@@ -4,7 +4,7 @@ block header
  h3 #{data.year} 
   small #{data.month} 
   span(style="padding-left:7px; #{formatAmountStyle(data.total)}") #{formatAmount(data.total)}
-  small(style="padding-left:13px;", onmouseover="this.style.cursor='pointer';", onclick="window.location='/summary/?year=#{data.year}&month=#{data.month_number}'") summary
+  small(style="padding-left:13px;", onmouseover="this.style.cursor='pointer';", onclick="window.location='/summary/?year=#{data.year}&month=#{data.month_number}'") summary for #{data.year}-#{data.month}
  div(id="selectTransactions", class="dropdown dropdown-menu-right", style="position:absolute; top:55px; right:50px;")
   button(class="btn btn-default dropdown-toggle", type="button", id="dropdownMenu1", data-toggle="dropdown", aria-haspopup="true")
    span #{data.year}-#{data.month} 
