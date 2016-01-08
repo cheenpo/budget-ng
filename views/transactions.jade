@@ -61,11 +61,14 @@ block content
      else
       td #{transaction.description}
      td
-      span(class="glyphicon glyphicon-search", aria-hidden="true", onmouseover="this.style.cursor='pointer';", onclick="showTransactionDetail('#{transaction.hash}');")
+      a(class="toolTip", style="color: black;" data-toggle="tooltip", data-placement="top", title="show details")
+       span(class="glyphicon glyphicon-search", aria-hidden="true", onmouseover="this.style.cursor='pointer';", onclick="showTransactionDetail('#{transaction.hash}');") 
       if transaction.ignore
-       span(style="", class="glyphicon glyphicon-ok", aria-hidden="true", onmouseover="this.style.cursor='pointer';", onclick="ignoreTransaction('#{transaction.hash}', 0);")
+       a(class="toolTip", style="color: black;" data-toggle="tooltip", data-placement="top", title="unhide transaction")
+        span(style="padding-left:7px;", class="glyphicon glyphicon-eye-open", aria-hidden="true", onmouseover="this.style.cursor='pointer';", onclick="ignoreTransaction('#{transaction.hash}', 0);")
       else
-       span(style="", class="glyphicon glyphicon-remove", aria-hidden="true", onmouseover="this.style.cursor='pointer';", onclick="ignoreTransaction('#{transaction.hash}', 1);")
+       a(class="toolTip", style="color: black;" data-toggle="tooltip", data-placement="top", title="hide transaction")
+        span(style="padding-left:7px;", class="glyphicon glyphicon-eye-close", aria-hidden="true", onmouseover="this.style.cursor='pointer';", onclick="ignoreTransaction('#{transaction.hash}', 1);")
 
 block pre-footer
  small #{data.row_count} rows @ 
@@ -75,4 +78,5 @@ block footer
  script.  
   window.onload = function() {
    populateDropDown("selectTransactions","transactions");
+   $("a.toolTip").tooltip();
   }
