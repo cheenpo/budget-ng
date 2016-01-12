@@ -33,4 +33,4 @@ node ./scripts/db_insert_data.js
 
 
 ## TODO
-
+edit conf/rules.yml via ux
