@@ -57,7 +57,7 @@ block footer
      document.getElementById("s_total").innerHTML = "<span style='"+formatAmountStyle(item.series.data[item.dataIndex][1])+"'>"+formatAmount(item.series.data[item.dataIndex][1])+"</span>";
      var average_total=!{JSON.stringify(data.average_total)};
      var diff = item.series.data[item.dataIndex][1] - average_total;
-     document.getElementById("s_average_total").innerHTML = "(<span style='"+formatAmountStyle(diff)+"'>"+formatAmount(diff)+"</span> of avg: "+formatAmount(average_total)+")";
+     document.getElementById("s_average_total").innerHTML = "(<span style='"+formatAmountStyle(diff)+"'>"+formatAmount(diff)+"</span>| "+formatAmount(average_total)+")";
     }
    });
    // percentage_saved
@@ -81,7 +81,7 @@ block footer
      document.getElementById("s_percentage_saved").innerHTML = "<span style='padding-left:7px; "+formatAmountStyle(item.series.data[item.dataIndex][1])+"'>"+item.series.data[item.dataIndex][1]+" %</span>";
      var average_percentage_saved=!{JSON.stringify(data.average_percentage_saved)};
      var diff = Math.round(item.series.data[item.dataIndex][1] - average_percentage_saved);
-     document.getElementById("s_average_percentage_saved").innerHTML = "(<span style='"+formatAmountStyle(diff)+"'>"+diff+"%</span> of avg: "+average_percentage_saved+"%)";
+     document.getElementById("s_average_percentage_saved").innerHTML = "(<span style='"+formatAmountStyle(diff)+"'>"+diff+"%</span>| "+average_percentage_saved+"%)";
     }
    });
    // macro
