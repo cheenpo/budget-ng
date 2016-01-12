@@ -1,6 +1,7 @@
 ##
 *.db
 *.yml
+ingestFile-*
 
 ## default Node .gitignore stuff
 # Logs

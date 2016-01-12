@@ -1,0 +1,79 @@
+extends layout
+
+block import
+
+block header
+ h3 Upload a file for ingestion
+
+block content
+ form(id="uploadForm", enctype="multipart/form-data", action="/upload", method="post", class="form-inline")
+  input(type="file", name="ingestFile", class="form-control")
+  button(type="submit", value="Upload Image", name="submit", class="btn btn-default", style="position:relative; left:27px") submit
+
+  br
+  br
+
+  if(data.message != "")
+   if(data.code == 1)
+    div(class="alert alert-danger")
+     span #{data.message}
+   else if(data.code == 2)
+    div(class="alert alert-warning")
+     span #{data.message}
+   else
+    div(class="alert alert-success")
+     span #{data.message}
+
+    if data.issues.length > 0
+     h2(style="color:#FC3D39;") Issues 
+      small #{data.issues.length}
+     table(class="table table-condensed table-striped")
+      tr
+       th category
+       th description
+       th amount
+       th account
+      for entry in data.issues
+       tr
+        td #{entry.macro}.#{entry.micro}
+        td #{entry.description}
+        td(style="#{formatAmountStyle(entry.amount)}") #{formatAmount(entry.amount)}
+        td #{entry.account}
+    
+    if data.entries.length > 0
+     h2(style="color:#53D769;") Entries 
+      small #{data.entries.length}
+     table(class="table table-condensed table-striped")
+      tr
+       th category
+       th description
+       th amount
+       th account
+      for entry in data.entries
+       tr
+        td #{entry.macro}.#{entry.micro}
+        td #{entry.description}
+        td(style="#{formatAmountStyle(entry.amount)}") #{formatAmount(entry.amount)}
+        td #{entry.account}
+    
+    if data.duplicates.length > 0
+     h2(style="color:#E5B729;") Duplicates 
+      small #{data.duplicates.length}
+     table(class="table table-condensed table-striped")
+      tr
+       th category
+       th description
+       th amount
+       th account
+      for entry in data.duplicates
+       tr
+        td #{entry.macro}.#{entry.micro}
+        td #{entry.description}
+        td(style="#{formatAmountStyle(entry.amount)}") #{formatAmount(entry.amount)}
+        td #{entry.account}
+  
+
+block footer
+ script.  
+  window.onload = function() {
+  }

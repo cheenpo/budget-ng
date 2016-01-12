@@ -1,13 +1,14 @@
 var express = require("express");
 var path = require('path');
 var fs = require("fs");
+
 var router = express.Router();
 var file = path.join(__dirname, "../db/budget.db");
 var exists = fs.existsSync(file);
 
 // GET home page; default to transactions
 router.get("/", function(req, res, next) {
- //res.send("cool beans!");
+ // res.send("cool beans!");
  res.redirect("/transactions");
 });
 

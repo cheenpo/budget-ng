@@ -33,5 +33,4 @@ node ./scripts/db_insert_data.js
 
 
 ## TODO
-- ingestion: ux
 
