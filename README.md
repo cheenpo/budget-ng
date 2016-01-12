@@ -11,6 +11,8 @@ you can start/stop the ux as needed and injest as needed... db is sqlite so thin
 
 
 ## getting started
+### npm init
+npm install
 ### init db
 node ./scripts/db_create.js
 ### ingest citibank export
