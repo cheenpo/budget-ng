@@ -41,7 +41,7 @@ block footer
     series: {color: "black", lines: {show: true}, points: {show: true, radius: 1, lineWidth: 5}},
     xaxis: {mode: "categories",tickLength: 0},
     yaxis: {tickFormatter: function(val, axis) { return "<span style='"+formatAmountStyle(val)+"'>"+formatAmount(val)+"</span>";}},
-    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"#FC3D39"}, {yaxis:{from:!{JSON.stringify(data.average_total)}, to:!{JSON.stringify(data.average_total)}}, color:"#1477D5"}]}
+    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"#FC3D39"}, {yaxis:{from:!{JSON.stringify(data.average_total)}, to:!{JSON.stringify(data.average_total)}}, color:"#1477D5"}, {yaxis:{from: 1000, to:1000}, color:"#E5B729"}]}
    });
    $("#total").bind("plotclick", function (event, pos, item) {
     if(item) {
@@ -65,7 +65,7 @@ block footer
     series: {color: "black", lines: {show: true}, points: {show: true, radius: 1, lineWidth: 5}},
     xaxis: {mode: "categories",tickLength: 0},
     yaxis: {tickFormatter: function(val, axis) { return "<span style='"+formatAmountStyle(val)+"'>"+val+"%</span>";}},
-    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"#FC3D39"}, {yaxis:{from:!{JSON.stringify(data.average_percentage_saved)}, to:!{JSON.stringify(data.average_percentage_saved)}}, color:"#1477D5"}]}
+    grid: {hoverable: true, clickable: true, markings: [{yaxis:{from: 0, to:0}, color:"#FC3D39"}, {yaxis:{from:!{JSON.stringify(data.average_percentage_saved)}, to:!{JSON.stringify(data.average_percentage_saved)}}, color:"#1477D5"}, {yaxis:{from: 13, to:13}, color:"#E5B729"}]}
    });
    $("#percentage_saved").bind("plotclick", function (event, pos, item) {
     if(item) {
