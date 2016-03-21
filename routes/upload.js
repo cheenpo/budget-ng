@@ -90,8 +90,8 @@ router.post("/", function(req,res) {
        var status = row[0][0];
        var date = row[0][1];
        var description = row[0][2];
-       var amount = row[0][13];
-       var account = row[0][15];
+       var amount = row[0][6];
+       var account = row[0][10];
        /*
        var positive = true;
        if (amount.indexOf("-") !=-1) {
