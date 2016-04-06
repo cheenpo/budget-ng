@@ -21,6 +21,7 @@ router.get("/", function(req, res, next) {
   json["macro"] = json["category"].split(".")[0];
   json["micro"] = json["category"].split(".")[1];
  }
+ if (json["description"] == undefined) { json["description"] = "%"; }
  json["month_number"] = json["month"];
  json["month"] = monthNames[json["month"]];
  if(exists) {
@@ -33,9 +34,9 @@ router.get("/", function(req, res, next) {
   if (json["hash"] != "%") {
    json["sql"] = "SELECT * FROM budget WHERE hash like '%"+json["hash"]+"%' ORDER BY year,month,day desc";
   } else if (json["month_number"] != "%") {
-   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month="+json["month_number"]+" AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' AND ignore like '%"+json["ignore"]+"%' ORDER BY year desc,month desc,day desc";
+   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month="+json["month_number"]+" AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' AND ignore like '%"+json["ignore"]+"%' AND description like '%"+json["description"]+"%' ORDER BY year desc,month desc,day desc";
   } else {
-   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month like '%"+json["month_number"]+"%' AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' AND ignore like '%"+json["ignore"]+"%' ORDER BY year desc,month desc,day desc";
+   json["sql"] = "SELECT * FROM budget WHERE year like '%"+json["year"]+"%' AND month like '%"+json["month_number"]+"%' AND hash like '%"+json["hash"]+"%' AND macro like '%"+json["macro"]+"%' AND micro like '%"+json["micro"]+"%' AND ignore like '%"+json["ignore"]+"%' AND description like '%"+json["description"]+"%' ORDER BY year desc,month desc,day desc";
   }
   db.each(json["sql"], function(err, row) {
    if(row.ignore) {
@@ -43,6 +44,7 @@ router.get("/", function(req, res, next) {
    } else {
     row["ignore_class"] = "";
    }
+   row["description_tokens"] = row["description"].split(" ");
    json["transactions"].push(row);
    json["year"] = row.year;
    json["month_number"] = row.month;
