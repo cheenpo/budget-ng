@@ -15,10 +15,10 @@ you can start/stop the ux as needed and injest as needed... db is sqlite so thin
 npm install
 ### init db
 node ./scripts/db_create.js
-### ingest citibank export
-node scripts/ingest.js /PATH/TO/ExportData.csv
 ### enjoy the ux
 sudo npm start (sudo needed because of port 80)
+### ingest citibank export
+click the 'upload' option or go to http://localhost/upload
 
 ## helpful
 ### test to make sure everything is ok
